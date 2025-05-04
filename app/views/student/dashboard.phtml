@@ -1,0 +1,16 @@
+<?php $title = 'Student Dashboard'; ?>
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h2 class="mb-3 text-center fw-bold"><?= $title; ?></h2>
+        <h2>Welcome, <?= htmlspecialchars($name) ?>!</h2>
+        <p class="lead">What would you like to do today?</p>
+    </div>
+    <div class="d-flex flex-column align-items-center gap-3">
+        <div>
+            <a href="<?= BASE_URL ?>find_tutor" class="btn btn-primary btn-lg">Find Tutor</a>
+        </div>
+        <div>
+            <a href="<?= BASE_URL ?>view_requests" class="btn btn-info btn-lg">View Requests</a>
+        </div>
+    </div>
+</div>

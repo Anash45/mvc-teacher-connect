@@ -1,0 +1,41 @@
+<?php $title = 'Admin Dashboard'; ?>
+<div class="container mt-5">
+    <h2 class="mb-3 text-center fw-bold"><?= $title; ?></h2>
+    <h2 class="mb-4 text-center">Tutors List</h2>
+    <div class="text-end mb-3">
+        <a href="<?= BASE_URL ?>add_tutor" class="btn btn-primary">Add Tutor</a>
+    </div>
+    <?php if (!empty($tutors)): ?>
+        <table class="table table-bordered mx-auto">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Subject</th>
+                    <th>Email</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($tutors as $tutor): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($tutor['tutor_id']) ?></td>
+                        <td><?= htmlspecialchars($tutor['name']) ?></td>
+                        <td><?= htmlspecialchars($tutor['subject']) ?></td>
+                        <td><?= htmlspecialchars($tutor['email']) ?></td>
+                        <td><?= htmlspecialchars($tutor['created_at']) ?></td>
+                        <td>
+                            <a href="<?= BASE_URL ?>edit_tutor?id=<?= $tutor['tutor_id'] ?>"
+                                class="btn btn-sm btn-warning">Edit</a>
+                            <a href="<?= BASE_URL ?>delete_tutor?id=<?= $tutor['tutor_id'] ?>" class="btn btn-sm btn-danger"
+                                onclick="return confirm('Are you sure?')">Delete</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p class="text-center">No tutors found.</p>
+    <?php endif; ?>
+</div>

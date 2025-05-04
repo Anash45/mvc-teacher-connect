@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title><?= $title ?? 'MSUTutorCodez' ?></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="<?php echo BASE_URL ?>public/assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo BASE_URL ?>public/assets/css/bootstrap.icons.css" rel="stylesheet">
+        <!-- Optional Custom CSS -->
+        <link href="<?php echo BASE_URL ?>public/assets/css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <?php
+        if (empty($hideLayout)): ?>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container">
+                    <a class="navbar-brand" href="#">Navbar</a>
+                    <button class="navbar-toggler d-lg-none btn btn-light" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <?php
+                            if (AuthController::isAdmin()) {
+                                ?>
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-danger ms-2" href="<?= BASE_URL ?>logout"> Logout </a>
+                                </li>
+                                <?php
+                            } else if (AuthController::isStudent()) {
+                                ?>
+                                    <li class="nav-item">
+                                        <a class="btn btn-outline-danger ms-2" href="<?= BASE_URL ?>logout">Logout</a>
+                                    </li>
+                                <?php
+                            } else if (AuthController::isStudent()) {
+                                ?>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="<?= BASE_URL ?>student_dashboard">Dashboard</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="<?= BASE_URL ?>find_tutors">Find Tutors</a>
+                                        </li>
+                                <?php
+                            }
+                            ?>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        <?php endif; ?>
+        <!-- Page Content -->
+        <main>
+            <div class="container">
+                <?= $content ?>
+            </div>
+        </main>
+        <?php if (empty($hideLayout)): ?>
+            <!-- Footer -->
+            <footer class="bg-dark text-white text-center py-3 mt-auto"> &copy; <?= date('Y') ?> MSU Tutor Connect. All
+                rights reserved. </footer>
+        <?php endif; ?>
+        <script src="<?php echo BASE_URL ?>public/assets/js/jquery-3.6.1.min.js"></script>
+        <script src="<?php echo BASE_URL ?>public/assets/js/bootstrap.bundle.min.js"></script>
+        <script src="<?php echo BASE_URL ?>public/assets/js/script.js"></script>
+    </body>
+
+</html>
