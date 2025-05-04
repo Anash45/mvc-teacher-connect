@@ -43,7 +43,7 @@ class AuthController extends Controller
 
             // Set a success message and redirect to login page
             $_SESSION['flash']['success'] = 'Signup successful. You can now login.';
-            header("Location: " . BASE_URL . "login");
+            header("Location: " . BASE_URL . "login.php");
             exit();
         }
 

@@ -51,6 +51,7 @@
         <p class="text-center">No tutors found.</p>
     <?php endif; ?>
     <div class="mt-5">
+        <h2 class="mb-4 text-center">Tutoring Requests</h2>
         <?php if (empty($requests)): ?>
             <p class="text-muted">You have not received any tutoring requests yet.</p>
         <?php else: ?>
@@ -58,6 +59,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th>#</th>
+                        <th>Student Name</th>
                         <th>Tutor Name</th>
                         <th>Tutor Subject</th>
                         <th>Request Subject</th>
@@ -70,6 +72,7 @@
                     <?php foreach ($requests as $i => $req): ?>
                         <tr>
                             <td><?= $i + 1 ?></td>
+                            <td><?= htmlspecialchars($req['student_name']) ?></td>
                             <td><?= htmlspecialchars($req['tutor_name']) ?></td>
                             <td><?= htmlspecialchars($req['tutor_subject']) ?></td>
                             <td><?= htmlspecialchars($req['subject']) ?></td>

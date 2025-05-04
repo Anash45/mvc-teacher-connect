@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-define('BASE_URL', '/mvc-teacher-connect/');
+define('BASE_URL', '/msu_tutor_connect/');
 
 // Load core classes
 require_once './core/Controller.php';
