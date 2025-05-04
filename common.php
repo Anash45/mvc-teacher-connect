@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-define('BASE_URL', '/msu_tutor_connect/');
+define('BASE_URL', '/david/p4/');
 
 // Load core classes
 require_once './core/Controller.php';

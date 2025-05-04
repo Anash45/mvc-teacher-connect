@@ -2,5 +2,5 @@
 
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'msu_tutor_connect');
-define('DB_USER', 'root');
-define('DB_PASS', 'root');
+define('DB_USER', 'msu_tutor_user');
+define('DB_PASS', 'StrongPassword123!');

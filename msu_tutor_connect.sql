@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2025 at 09:08 PM
--- Server version: 8.0.35
--- PHP Version: 8.2.0
+-- Generation Time: May 04, 2025 at 11:55 PM
+-- Server version: 8.0.39
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,7 +20,14 @@ SET time_zone = "+00:00";
 --
 -- Database: `msu_tutor_connect`
 --
+-- Create the database if it doesn't exist
+CREATE DATABASE IF NOT EXISTS msu_tutor_connect;
+USE msu_tutor_connect;
 
+-- Create the user and assign privileges
+CREATE USER IF NOT EXISTS 'msu_tutor_user'@'localhost' IDENTIFIED BY 'StrongPassword123!';
+GRANT ALL PRIVILEGES ON msu_tutor_connect.* TO 'msu_tutor_user'@'localhost';
+FLUSH PRIVILEGES;
 -- --------------------------------------------------------
 
 --
