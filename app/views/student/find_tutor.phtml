@@ -1,0 +1,48 @@
+<?php $title = 'Find Tutor'; ?>
+<div class="container mt-5">
+    <h2>Find a Tutor</h2>
+    <form method="GET" action="<?= BASE_URL ?>find_tutor.php" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search by name or subject"
+                value="<?= htmlspecialchars($query ?? '') ?>">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
+    <?php if (empty($tutors)): ?>
+        <p>No tutors found.</p>
+    <?php else: ?>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Subject</th>
+                    <th>Email</th>
+                    <th>Bio</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($tutors as $tutor): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($tutor['name']) ?></td>
+                        <td><?= htmlspecialchars($tutor['subject']) ?></td>
+                        <td><?= htmlspecialchars($tutor['email']) ?></td>
+                        <td><?= htmlspecialchars($tutor['bio']) ?></td>
+                        <td>
+                            <?php if (!empty($tutor['image'])): ?>
+                                <img src="<?= BASE_URL ?>uploads/<?= $tutor['image'] ?>" alt="Tutor Image" width="80">
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <a href="<?= BASE_URL ?>request_tutor.php?id=<?= $tutor['tutor_id'] ?>"
+                                class="btn btn-sm btn-success">Request</a>
+                            <a href="<?= BASE_URL ?>view_tutor.php?id=<?= $tutor['tutor_id'] ?>"
+                                class="btn btn-sm btn-info">View</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+</div>

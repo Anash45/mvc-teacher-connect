@@ -3,7 +3,7 @@
     <h2 class="mb-3 text-center fw-bold"><?= $title; ?></h2>
     <h2 class="mb-4 text-center">Tutors List</h2>
     <div class="text-end mb-3">
-        <a href="<?= BASE_URL ?>add_tutor" class="btn btn-primary">Add Tutor</a>
+        <a href="<?= BASE_URL ?>add_tutor.php" class="btn btn-primary">Add Tutor</a>
     </div>
     <?php if (!empty($tutors)): ?>
         <table class="table table-bordered mx-auto">
@@ -26,9 +26,9 @@
                         <td><?= htmlspecialchars($tutor['email']) ?></td>
                         <td><?= htmlspecialchars($tutor['created_at']) ?></td>
                         <td>
-                            <a href="<?= BASE_URL ?>edit_tutor?id=<?= $tutor['tutor_id'] ?>"
+                            <a href="<?= BASE_URL ?>edit_tutor.php?id=<?= $tutor['tutor_id'] ?>"
                                 class="btn btn-sm btn-warning">Edit</a>
-                            <a href="<?= BASE_URL ?>delete_tutor?id=<?= $tutor['tutor_id'] ?>" class="btn btn-sm btn-danger"
+                            <a href="<?= BASE_URL ?>delete_tutor.php?id=<?= $tutor['tutor_id'] ?>" class="btn btn-sm btn-danger"
                                 onclick="return confirm('Are you sure?')">Delete</a>
                         </td>
                     </tr>

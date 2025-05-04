@@ -17,7 +17,9 @@
         if (empty($hideLayout)): ?>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container">
-                    <a class="navbar-brand" href="#">Navbar</a>
+                    <a class="navbar-brand" href="<?php echo BASE_URL; ?>">
+                        <img src="<?php echo BASE_URL ?>public/assets/img/logo.png" alt="Logo" height="50">
+                    </a>
                     <button class="navbar-toggler d-lg-none btn btn-light" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -29,22 +31,34 @@
                             if (AuthController::isAdmin()) {
                                 ?>
                                 <li class="nav-item">
-                                    <a class="btn btn-outline-danger ms-2" href="<?= BASE_URL ?>logout"> Logout </a>
+                                    <a class="nav-link" href="<?= BASE_URL ?>admin_dashboard.php">Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?= BASE_URL ?>add_tutor.php">Add Tutor</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-danger ms-2" href="<?= BASE_URL ?>logout.php"> Logout </a>
                                 </li>
                                 <?php
                             } else if (AuthController::isStudent()) {
                                 ?>
                                     <li class="nav-item">
-                                        <a class="btn btn-outline-danger ms-2" href="<?= BASE_URL ?>logout">Logout</a>
+                                        <a class="nav-link" href="<?= BASE_URL ?>student_dashboard.php">Dashboard</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="<?= BASE_URL ?>find_tutor.php">Find Tutors</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="btn btn-outline-danger ms-2" href="<?= BASE_URL ?>logout.php">Logout</a>
                                     </li>
                                 <?php
                             } else if (AuthController::isStudent()) {
                                 ?>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="<?= BASE_URL ?>student_dashboard">Dashboard</a>
+                                            <a class="nav-link" href="<?= BASE_URL ?>find_tutor.php">Find Tutors</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="<?= BASE_URL ?>find_tutors">Find Tutors</a>
+                                            <a class="btn btn-outline-primary ms-2" href="<?= BASE_URL ?>login.php">Login</a>
                                         </li>
                                 <?php
                             }

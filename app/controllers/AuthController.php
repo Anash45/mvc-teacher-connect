@@ -77,9 +77,9 @@ class AuthController extends Controller
                 // Redirect to the dashboard or wherever after login
 
                 if ($_SESSION['role'] == 'admin') {
-                    header("Location: " . BASE_URL . "admin_dashboard");
+                    header("Location: " . BASE_URL . "admin_dashboard.php");
                 } else {
-                    header("Location: " . BASE_URL . "student_dashboard");
+                    header("Location: " . BASE_URL . "student_dashboard.php");
 
                 }
             }
@@ -116,7 +116,7 @@ class AuthController extends Controller
 
     public function logout(){
         session_destroy();
-        header('location:'.BASE_URL.'login');
+        header('location:'.BASE_URL.'login.php');
     }
 
 }

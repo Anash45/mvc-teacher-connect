@@ -1,0 +1,58 @@
+<?php $title = 'Edit Tutor'; ?>
+<div class="container mt-5">
+    <div class="mb-3">
+        <a href="<?= BASE_URL ?>admin_dashboard.php" class="btn btn-primary">Back</a>
+    </div>
+    <div class="card p-4 shadow">
+        <h3 class="mb-4">Edit Tutor</h3>
+        <form method="POST" enctype="multipart/form-data">
+            <?php if (isset($_SESSION['flash']['error'])): ?>
+                <div class="alert alert-danger"><?= $_SESSION['flash']['error'];
+                unset($_SESSION['flash']['error']); ?>
+                </div>
+            <?php endif; ?>
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" value="<?= htmlspecialchars($tutor['name']) ?>"
+                    required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Subjects</label>
+                <input type="text" name="subject" class="form-control"
+                    value="<?= htmlspecialchars($tutor['subject']) ?>" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($tutor['email']) ?>"
+                    required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Bio</label>
+                <textarea name="bio" class="form-control" required><?= htmlspecialchars($tutor['bio']) ?></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Image</label>
+                <input type="file" name="image" class="form-control" accept="image/*">
+                <?php if (!empty($tutor['image'])): ?>
+                    <img src="<?= BASE_URL ?>uploads/<?= $tutor['image'] ?>" class="img-thumbnail mt-2"
+                        style="max-width: 150px;">
+                <?php endif; ?>
+            </div>
+            <h5 class="mt-4">Availability</h5>
+            <?php foreach (['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as $day): ?>
+                <div class="row mb-2">
+                    <div class="col-md-2"><strong><?= $day ?></strong></div>
+                    <div class="col-md-5">
+                        <input type="time" name="<?= $day ?>_start" class="form-control"
+                            value="<?= htmlspecialchars($tutor['availability'][$day]['start_time'] ?? '') ?>">
+                    </div>
+                    <div class="col-md-5">
+                        <input type="time" name="<?= $day ?>_end" class="form-control"
+                            value="<?= htmlspecialchars($tutor['availability'][$day]['end_time'] ?? '') ?>">
+                    </div>
+                </div>
+            <?php endforeach; ?>
+            <button type="submit" class="btn btn-success mt-3">Update Tutor</button>
+        </form>
+    </div>
+</div>

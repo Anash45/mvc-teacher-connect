@@ -63,11 +63,63 @@ class AdminController extends Controller
             $this->tutorModel->createTutor($name, $subject, $bio, $email, $imagePath, $availability);
 
             $_SESSION['flash']['success'] = "Tutor added successfully.";
-            header('Location: ' . BASE_URL . 'add_tutor');
+            header('Location: ' . BASE_URL . 'add_tutor.php');
             exit;
         }
 
         $this->view('admin/add_tutor');
+    }
+
+    public function editTutor($id)
+    {
+        $tutor = $this->tutorModel->getTutorById($id);
+        if (!$tutor) {
+            $_SESSION['flash']['error'] = 'Tutor not found.';
+            header('Location: ' . BASE_URL . 'admin_dashboard.php');
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'];
+            $subject = $_POST['subject'];
+            $bio = $_POST['bio'];
+            $email = $_POST['email'];
+
+            $availability = [];
+            $hasAvailability = false;
+            foreach (['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as $day) {
+                $start = $_POST[$day . '_start'];
+                $end = $_POST[$day . '_end'];
+                $availability[$day] = ['start' => $start, 'end' => $end];
+                if (!empty($start) || !empty($end)) {
+                    $hasAvailability = true;
+                }
+            }
+
+            if (!$hasAvailability) {
+                $_SESSION['flash']['error'] = 'Please provide availability for at least one day.';
+                $this->view('admin/edit_tutor', ['tutor' => $tutor]);
+                return;
+            }
+
+            $imagePath = $tutor['image'];
+            if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+                $imageName = uniqid('tutor_', true) . '.' . $ext;
+                $uploadPath = 'uploads/' . $imageName;
+
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath)) {
+                    $imagePath = $imageName;
+                }
+            }
+
+            $this->tutorModel->updateTutor($id, $name, $subject, $bio, $email, $imagePath, $availability);
+            $_SESSION['flash']['success'] = 'Tutor updated successfully.';
+            header('Location: ' . BASE_URL . 'admin_dashboard.php');
+            exit;
+        }
+
+        $this->view('admin/edit_tutor', ['tutor' => $tutor]);
     }
 
 }
