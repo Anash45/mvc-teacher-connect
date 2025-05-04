@@ -2,12 +2,18 @@
 <html>
 
     <head>
-        <title><?= $web_title . ' -' ?? 'MSUTutorCodez' ?></title>
+        <title><?= $web_title . ' -' ?? 'MSU Tutor Connect' ?></title>
     </head>
 
     <body>
-        <h1><?= $web_title ?? 'Hello' ?></h1>
-        <p>This is the home page using .phtml templating.</p>
+        <img src="<?php echo BASE_URL ?>public/assets/img/msu-banner.png" alt="" class="img-fluid w-100">
+        <div class="text-center mb-5">
+            <h1 class="display h1 fw-bold">Welcome to the MSU Tutor Connect!</h1>
+            <p class="h3 mb-4">An easy way for MSU students to connect with tutors.</p>
+            <div class="text-center">
+                <a href="<?= BASE_URL ?>find_tutor.php" class="btn btn-lg btn-primary fw-bold">Get Started</a>
+            </div>
+        </div>
     </body>
 
 </html>

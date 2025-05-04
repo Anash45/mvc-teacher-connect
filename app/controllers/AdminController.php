@@ -1,5 +1,4 @@
 <?php
-require './app/models/TutorModel.php';
 
 class AdminController extends Controller
 {
@@ -13,7 +12,8 @@ class AdminController extends Controller
     public function index()
     {
         $tutors = $this->tutorModel->getAllTutors();
-        $this->view('admin/dashboard', ['tutors' => $tutors]);
+        $requests = $this->tutorModel->getAllRequests();
+        $this->view('admin/dashboard', ['tutors' => $tutors,'requests' => $requests]);
     }
 
     public function addTutor()
@@ -121,5 +121,30 @@ class AdminController extends Controller
 
         $this->view('admin/edit_tutor', ['tutor' => $tutor]);
     }
+
+    public function deleteTutor()
+    {
+        if (!isset($_GET['id'])) {
+            $_SESSION['flash']['error'] = "Invalid tutor ID.";
+            header('Location: ' . BASE_URL . 'admin_dashboard.php');
+            exit;
+        }
+
+        $id = (int) $_GET['id'];
+
+        $tutor = $this->tutorModel->getTutorById($id);
+        if (!$tutor) {
+            $_SESSION['flash']['error'] = "Tutor not found.";
+            header('Location: ' . BASE_URL . 'admin_dashboard.php');
+            exit;
+        }
+
+        $this->tutorModel->deleteTutor($id);
+
+        $_SESSION['flash']['success'] = "Tutor deleted successfully.";
+        header('Location: ' . BASE_URL . 'admin_dashboard.php');
+        exit;
+    }
+
 
 }

@@ -2,6 +2,18 @@
 <div class="container mt-5">
     <h2 class="mb-3 text-center fw-bold"><?= $title; ?></h2>
     <h2 class="mb-4 text-center">Tutors List</h2>
+    <?php if (isset($_SESSION['flash']['error'])): ?>
+        <div class="alert alert-danger">
+            <?= $_SESSION['flash']['error']; ?>
+            <?php unset($_SESSION['flash']['error']); ?>
+        </div>
+    <?php endif; ?>
+    <?php if (isset($_SESSION['flash']['success'])): ?>
+        <div class="alert alert-success">
+            <?= $_SESSION['flash']['success']; ?>
+            <?php unset($_SESSION['flash']['success']); ?>
+        </div>
+    <?php endif; ?>
     <div class="text-end mb-3">
         <a href="<?= BASE_URL ?>add_tutor.php" class="btn btn-primary">Add Tutor</a>
     </div>
@@ -38,4 +50,49 @@
     <?php else: ?>
         <p class="text-center">No tutors found.</p>
     <?php endif; ?>
+    <div class="mt-5">
+        <?php if (empty($requests)): ?>
+            <p class="text-muted">You have not received any tutoring requests yet.</p>
+        <?php else: ?>
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Tutor Name</th>
+                        <th>Tutor Subject</th>
+                        <th>Request Subject</th>
+                        <th>Message</th>
+                        <th>Status</th>
+                        <th>Submitted At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($requests as $i => $req): ?>
+                        <tr>
+                            <td><?= $i + 1 ?></td>
+                            <td><?= htmlspecialchars($req['tutor_name']) ?></td>
+                            <td><?= htmlspecialchars($req['tutor_subject']) ?></td>
+                            <td><?= htmlspecialchars($req['subject']) ?></td>
+                            <td><?= nl2br(htmlspecialchars($req['message'])) ?></td>
+                            <td>
+                                <form method="POST" action="update_request_status.php" class="d-flex align-items-center gap-2">
+                                    <input type="hidden" name="request_id" value="<?= $req['request_id'] ?>">
+                                    <select name="status" class="form-select form-select-sm" required>
+                                        <option value="pending" <?= $req['status'] === 'pending' ? 'selected' : '' ?>>Pending
+                                        </option>
+                                        <option value="accepted" <?= $req['status'] === 'accepted' ? 'selected' : '' ?>>Accepted
+                                        </option>
+                                        <option value="rejected" <?= $req['status'] === 'rejected' ? 'selected' : '' ?>>Rejected
+                                        </option>
+                                    </select>
+                                    <button type="submit" class="btn btn-sm btn-outline-primary">Update</button>
+                                </form>
+                            </td>
+                            <td><?= date('d M Y, h:i A', strtotime($req['submitted_at'])) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+    </div>
 </div>

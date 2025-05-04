@@ -13,3 +13,17 @@ main {
 .nav-link{
     color: #1b1b1b !important;
 }
+table td,table th{
+    vertical-align: middle;
+}
+.tutor-table-img{
+    object-fit: contain;
+}
+
+.tutor-img-td{
+    width: 120px;
+}
+
+.tutor-content-td{
+    width: 100%;
+}

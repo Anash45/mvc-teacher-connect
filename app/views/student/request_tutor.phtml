@@ -1,0 +1,37 @@
+<?php $title = 'Request Tutor'; ?>
+<div class="container mt-5">
+    <div class="card shadow p-4">
+        <h3 class="mb-4">Request Tutor</h3>
+        <?php if (isset($_SESSION['flash']['error'])): ?>
+            <div class="alert alert-danger"><?= $_SESSION['flash']['error'];
+            unset($_SESSION['flash']['error']); ?></div>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['flash']['success'])): ?>
+            <div class="alert alert-success"><?= $_SESSION['flash']['success'];
+            unset($_SESSION['flash']['success']); ?>
+            </div>
+        <?php endif; ?>
+        <div class="row mb-4">
+            <div class="col-md-4 text-center">
+                <img src="<?= BASE_URL ?>uploads/<?= htmlspecialchars($tutor['image']) ?>"
+                    class="img-fluid rounded shadow" alt="Tutor Image">
+            </div>
+            <div class="col-md-8">
+                <h4><?= htmlspecialchars($tutor['name']) ?></h4>
+                <p><strong>Email:</strong> <?= htmlspecialchars($tutor['email']) ?></p>
+                <p><strong>Subjects:</strong> <?= htmlspecialchars($tutor['subject']) ?></p>
+            </div>
+        </div>
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Subject</label>
+                <input type="text" name="subject" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Message</label>
+                <textarea name="message" class="form-control" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Request</button>
+        </form>
+    </div>
+</div>

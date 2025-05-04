@@ -1,0 +1,55 @@
+<?php $title = 'My Requests'; ?>
+<div class="container mt-5">
+    <div class="card shadow p-4">
+        <h3 class="mb-4">My Tutoring Requests</h3>
+        <?php if (isset($_SESSION['flash']['error'])): ?>
+            <div class="alert alert-danger">
+                <?= $_SESSION['flash']['error']; ?>
+                <?php unset($_SESSION['flash']['error']); ?>
+            </div>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['flash']['success'])): ?>
+            <div class="alert alert-success">
+                <?= $_SESSION['flash']['success']; ?>
+                <?php unset($_SESSION['flash']['success']); ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if (empty($requests)): ?>
+            <p class="text-muted">You have not submitted any tutoring requests yet.</p>
+        <?php else: ?>
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Tutor Name</th>
+                        <th>Tutor Subject</th>
+                        <th>Request Subject</th>
+                        <th>Message</th>
+                        <th>Status</th>
+                        <th>Submitted At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($requests as $i => $req): ?>
+                        <tr>
+                            <td><?= $i + 1 ?></td>
+                            <td><?= htmlspecialchars($req['tutor_name']) ?></td>
+                            <td><?= htmlspecialchars($req['tutor_subject']) ?></td>
+                            <td><?= htmlspecialchars($req['subject']) ?></td>
+                            <td><?= nl2br(htmlspecialchars($req['message'])) ?></td>
+                            <td>
+                                <span class="badge bg-<?= 
+                                    $req['status'] === 'pending' ? 'warning' : 
+                                    ($req['status'] === 'accepted' ? 'success' : 'danger') ?>">
+                                    <?= ucfirst($req['status']) ?>
+                                </span>
+                            </td>
+                            <td><?= date('d M Y, h:i A', strtotime($req['submitted_at'])) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+    </div>
+</div>

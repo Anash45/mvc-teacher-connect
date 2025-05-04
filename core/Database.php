@@ -21,7 +21,7 @@ class Database
         }
     }
 
-    public static function getConnection()
+    public static function getDB()
     {
         if (self::$instance === null) {
             self::$instance = new Database();

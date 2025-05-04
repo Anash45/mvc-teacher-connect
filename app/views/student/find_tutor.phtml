@@ -14,31 +14,32 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Subject</th>
-                    <th>Email</th>
-                    <th>Bio</th>
-                    <th>Image</th>
+                    <th></th>
+                    <th>Tutor</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($tutors as $tutor): ?>
                     <tr>
-                        <td><?= htmlspecialchars($tutor['name']) ?></td>
-                        <td><?= htmlspecialchars($tutor['subject']) ?></td>
-                        <td><?= htmlspecialchars($tutor['email']) ?></td>
-                        <td><?= htmlspecialchars($tutor['bio']) ?></td>
-                        <td>
+                        <td class="text-center tutor-img-td">
                             <?php if (!empty($tutor['image'])): ?>
-                                <img src="<?= BASE_URL ?>uploads/<?= $tutor['image'] ?>" alt="Tutor Image" width="80">
+                                <img src="<?= BASE_URL ?>uploads/<?= $tutor['image'] ?>" alt="Tutor Image" width="100"
+                                    class="tutor-table-img">
                             <?php endif; ?>
                         </td>
+                        <td class="tutor-content-td">
+                            <h3 class="mb-0"><?= htmlspecialchars($tutor['name']) ?></h3>
+                            <p class="mb-0"><?= htmlspecialchars($tutor['subject']) ?></p>
+                            <p class="mb-0"><?= htmlspecialchars($tutor['email']) ?></p>
+                        </td>
                         <td>
-                            <a href="<?= BASE_URL ?>request_tutor.php?id=<?= $tutor['tutor_id'] ?>"
-                                class="btn btn-sm btn-success">Request</a>
-                            <a href="<?= BASE_URL ?>view_tutor.php?id=<?= $tutor['tutor_id'] ?>"
-                                class="btn btn-sm btn-info">View</a>
+                            <div class="d-flex gap-2 align-items-center">
+                                <a href="<?= BASE_URL ?>request_tutor.php?id=<?= $tutor['tutor_id'] ?>"
+                                    class="btn btn-sm btn-success">Request</a>
+                                <a href="<?= BASE_URL ?>tutor_profile.php?id=<?= $tutor['tutor_id'] ?>"
+                                    class="btn btn-sm btn-info">View</a>
+                            </div>
                         </td>
                     </tr>
                 <?php endforeach; ?>

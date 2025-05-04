@@ -114,7 +114,7 @@ class AuthController extends Controller
         return isset($_SESSION['user_id']) && isset($_SESSION['role']) && $_SESSION['role'] == 'student';
     }
 
-    public function logout(){
+    public function logoutUser(){
         session_destroy();
         header('location:'.BASE_URL.'login.php');
     }

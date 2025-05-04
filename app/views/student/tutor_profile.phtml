@@ -1,0 +1,52 @@
+<div class="container mt-5">
+    <a href="<?= BASE_URL ?>find_tutor.php" class="btn btn-secondary mb-3">← Back to List</a>
+
+    <div class="row shadow rounded p-4 bg-white">
+        <div class="col-md-4 text-center">
+            <?php if ($tutor['image']): ?>
+                <img src="<?= BASE_URL ?>uploads/<?= $tutor['image'] ?>" class="img-fluid rounded" style="max-height: 250px;" alt="Tutor Image">
+            <?php else: ?>
+                <div class="bg-light border rounded p-5">No Image</div>
+            <?php endif; ?>
+        </div>
+
+        <div class="col-md-8">
+            <h2><?= htmlspecialchars($tutor['name']) ?></h2>
+            <p><strong>Subject:</strong> <?= htmlspecialchars($tutor['subject']) ?></p>
+            <p><strong>Email:</strong> <?= htmlspecialchars($tutor['email']) ?></p>
+            <p><strong>Bio:</strong><br><?= nl2br(htmlspecialchars($tutor['bio'])) ?></p>
+        </div>
+    </div>
+
+    <div class="mt-4 card shadow">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0 text-center">Weekly Availability</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered mb-0">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+                    foreach ($days as $day):
+                        $start = $tutor['availability'][$day]['start_time'] ?? '—';
+                        $end = $tutor['availability'][$day]['end_time'] ?? '—';
+                        if($start != '—' && $end != '—'):
+                    ?>
+                        <tr>
+                            <td><?= $day ?></td>
+                            <td><?= $start ?: '—' ?></td>
+                            <td><?= $end ?: '—' ?></td>
+                        </tr>
+                    <?php endif; endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -25,6 +25,18 @@ class TutorModel extends Model
             }
         }
     }
+    
+    public function getAllRequests()
+    {
+        $stmt = $this->db->prepare("
+        SELECT r.request_id, t.name AS tutor_name, t.subject AS tutor_subject, r.subject, r.message, r.status, r.submitted_at
+        FROM tutoring_requests r
+        JOIN tutors t ON r.tutor_id = t.tutor_id
+        ORDER BY r.submitted_at DESC
+    ");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     public function isEmailTaken($email)
     {
@@ -93,4 +105,14 @@ class TutorModel extends Model
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function deleteTutor($id)
+    {
+        // Delete availability first to maintain FK integrity
+        $this->db->prepare("DELETE FROM tutoravailability WHERE tutor_id = ?")->execute([$id]);
+
+        // Then delete the tutor
+        $this->db->prepare("DELETE FROM tutors WHERE tutor_id = ?")->execute([$id]);
+    }
+
 }
